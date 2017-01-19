@@ -1,4 +1,6 @@
 class Api::V1::PerformanceDataController < ApplicationController
-  create
-
+  def create
+    Performance_data.create(data: params[:performance_data]).valid?
+    render json: { message: 'all good' }
+  end
 end
