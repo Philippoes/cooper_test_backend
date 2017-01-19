@@ -2,12 +2,12 @@ class Api::V1::PerformanceDataController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   def create
-    binding.pry
-    @data = PerformanceData.create(performance_data_params.merge(user: current_api_v1_user)).valid?
-    render json: {message: 'all good'}
-  else
-    render json: {error: @data.errors.full_messages}
+    if PerformanceData.create(performance_data_params.merge(user: current_api_v1_user)).valid?
+      render json: {message: 'all good'}
+    else
+      render json: {error: PerformanceData.errors.full_messages}
     end
+  end
 
   private
 
