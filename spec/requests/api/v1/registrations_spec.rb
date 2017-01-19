@@ -25,5 +25,16 @@ RSpec.describe 'User Registration', type: :request do
       expect(response_json['errors']['password_confirmation']).to eq ["doesn't match Password"]
       expect(response.status).to eq 422
     end
+
+    it 'an invalid email address' do
+      post '/api/v1/auth', params: {
+          email: 'example@craft',
+          password: 'password',
+          password_confirmation: 'password'
+      }, headers: headers
+
+      expect(response_json['errors']['email']).to eq ['is not an email']
+      expect(response.status).to eq 422
+    end
   end
 end
