@@ -54,5 +54,16 @@ RSpec.describe 'User Registration', type: :request do
       expect(response_json['errors']['email']).to eq ['already in use']
       expect(response.status).to eq 422
     end
+
+    it 'password not long enough' do
+      post '/api/v1/auth', params: {
+          email: 'example@craftacademy.se',
+          password: 'p',
+          password_confirmation: 'p'
+      }, headers: headers
+
+      expect(response_json['errors']['password']).to eq ['is too short (minimum is 8 characters)']
+      expect(response.status).to eq 422
+    end
   end
 end
