@@ -30,4 +30,17 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :created_at }
     it { is_expected.to have_db_column :updated_at }
   end
+
+  describe 'Validations' do
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:password) }
+
+    context 'should not have an invalid email address' do
+      emails = ['asdf@ ds.com', '@example.com', 'test me @yahoo.com', 'asdf@example','ddd@.d.', 'ddd@.d']
+
+      emails.each do |email|
+        it { is_expected.to allow_value(email).for(:email)}
+      end
+    end
+  end
 end
