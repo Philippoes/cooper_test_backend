@@ -36,5 +36,23 @@ RSpec.describe 'User Registration', type: :request do
       expect(response_json['errors']['email']).to eq ['is not an email']
       expect(response.status).to eq 422
     end
+
+    it 'an already registered email' do
+      FactoryGirl.create(
+          :user,
+          email: 'example@craftacademy.se',
+          password: 'password',
+          password_confirmation: 'password'
+      )
+
+      post '/api/v1/auth', params: {
+          email: 'example@craftacademy.se',
+          password: 'password',
+          password_confirmation: 'password'
+      }, headers: headers
+
+      expect(response_json['errors']['email']).to eq ['already in use']
+      expect(response.status).to eq 422
+    end
   end
 end
