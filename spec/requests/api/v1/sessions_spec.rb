@@ -1,6 +1,6 @@
 RSpec.describe 'Sessions', type: :request do
   let(:user) { FactoryGirl.create(:user) }
-  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+  let(:headers) { {HTTP_ACCEPT: 'application/json'} }
 
   describe 'POST /api/v1/auth/sign_in' do
     it 'valid credentials returns user' do
@@ -23,6 +23,16 @@ RSpec.describe 'Sessions', type: :request do
 
       expect(response_json).to eq expected_response
       expect(response.status).to eq 200
+    end
+
+    it 'invalid password reutrns error message' do
+      post '/api/v1/auth/sign_in', params: {
+          email: user.email,
+          password: 'wrong_password'
+      }, headers: headers
+
+      expect(response_json['errors']).to eq ["Invalid login credentials. Please try again."]
+      expect(response.status).to eq 401
     end
   end
 end
