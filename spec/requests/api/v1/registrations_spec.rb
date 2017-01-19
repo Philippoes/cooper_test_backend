@@ -13,4 +13,14 @@ RSpec.describe 'User Registration', type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  context 'returns an error message when user submits' do
+    it 'non-matching password confirmation' do
+      post '/api/v1/auth', params: {
+          email: 'example@craftacademy.se',
+          password: 'password',
+          password_confirmation: 'password_not_right'
+      }, headers: headers
+    end
+  end
 end
