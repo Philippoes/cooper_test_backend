@@ -1,5 +1,5 @@
 RSpec.describe 'User Registration', type: :request do
-  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+  let(:headers) { {HTTP_ACCEPT: 'application/json'} }
 
   context 'with valid credentials' do
     it 'returns a user and token' do
@@ -21,6 +21,9 @@ RSpec.describe 'User Registration', type: :request do
           password: 'password',
           password_confirmation: 'password_not_right'
       }, headers: headers
+
+      expect(response_json['errors']['password_confirmation']).to eq ["doesn't match Password"]
+      expect(response.status).to eq 422
     end
   end
 end
