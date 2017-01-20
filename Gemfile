@@ -6,6 +6,7 @@ gem 'puma', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
 gem 'rack-cors', require: 'rack/cors'
 gem 'devise_token_auth'
+gem 'travis'
 
 group :development, :test do
   gem 'rspec-rails'

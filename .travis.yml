@@ -1,0 +1,22 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.0.0
+- 1.9.3
+- jruby-19mode
+- rbx-2
+before_script:
+- bundle exec rails db:create --all
+- bundle exec rails db:migrate
+services:
+- postgresql
+deploy:
+  provider: heroku
+  api_key:
+    secure: UI9aU4Up9kUjFYAdD/jPDRMVmtReX2elew6zhHiX6fmmk2logXsZ+DY9zCYN/n2I1mQGLflfayhpQwMTAuXSzPL700K1gZOPF0LED8wDVWhu0UjmJb2d/OX6DUr2ITyOPaEn7czzjyA5WLaMTut9FaF1lE3wuc42X6cOi3xu9vhmcZ1I7GURiuC8XrxtkO0dnPBjjOu4cjMNzSgPIx5RybeLL/ny0+PYzR4F9t7R/j/ooGr4Jnxmm1e6dUd+d6eSIyKjsoFx5XFrTFaBLev5jn5wQOp9KmOW1KfXbg7S1TqNuJVeqBZ7lgMWya9712BFkiX/JAz17G9EALw6ZLhLZ1wd0Dwvpuhy18GBs0z7m2Uc/Zo9W4x9WmdD7/xVdh4paDAvMbi4P+J0P3LHUE98ZcKLU5N2n0yFUap3G70YhuNo3V3TJks51PianvZ5b0Jel8ws80CjJT1GjKkjFcrPumREMdMmWbW2+Dqj0T1/KD4UYKT4o7aneZKrPiioy3hyaKWVceN6pSu/5sHeU7B5Nssw7+A2nEL2DR76MWpHloxNrg/5Yyes8uN/+u+LRDellz7SCU+q/WGIoBqsd2BKQa9w0MyzJaJ+sFCsYopLj/Q/AJwvc6rI3GTnUYXxkZNycvzxoHnjg8JAWI/6h8yooNwoyrKAp7j2bMsFO25K+TY=
+  app:
+    develop: cooper-test-backend
+  on:
+    repo: Philippoes/cooper_test_backend
+  run:
+  - bundle exec rails db:migrate
