@@ -13,12 +13,12 @@ RSpec.describe Api::V1::PerformanceDataController, type: :request do
       expect(entry.data).to eq 'message' => 'Average'
     end
 
-    it 'gives error if data is not string' do
+    it 'gives error if data is not part of the data table' do
       post '/api/v1/performance_data', params: {
-          performance_data: {data: {message: 12345}}
+          performance_data: {data: {message: 'Random'}}
       }, headers: headers
 
-      expect(response_json['errors']).to eq ["Data must be a string"]
+      expect(response_json['errors']).to eq ["Data is not valid"]
       expect(response.status).to eq 401
     end
 
