@@ -13,6 +13,15 @@ RSpec.describe Api::V1::PerformanceDataController, type: :request do
       expect(entry.data).to eq 'message' => 'Average'
     end
 
+    it 'gives error if data is not string' do
+      post '/api/v1/performance_data', params: {
+          performance_data: {data: {message: 12345}}
+      }, headers: headers
+
+      expect(response_json['errors']).to eq ["Data must be a string"]
+      expect(response.status).to eq 401
+    end
+
     it 'gives error when user has no token' do
       post '/api/v1/performance_data', params: {
           performance_data: {data: {message: 'Average'}}
