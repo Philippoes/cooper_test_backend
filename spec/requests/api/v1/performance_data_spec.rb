@@ -44,6 +44,11 @@ RSpec.describe Api::V1::PerformanceDataController, type: :request do
         expect(response_json['entries'].count).to eq 5
       end
 
+      it 'returns the right value' do
+        get '/api/v1/performance_data', headers: headers
+        expect(response_json['entries'].first['data']['message']).to eq 'Average'
+      end
+
       it 'gives error when user has no token' do
         get '/api/v1/performance_data', headers: nil
         expect(response_json['errors']).to eq ["Authorized users only."]
