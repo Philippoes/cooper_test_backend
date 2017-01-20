@@ -23,7 +23,8 @@ module CooperTestBackend
       allow do
         origins '*'
         resource '*',
-                 headers: :any, methods: [:get, :post, :put, :delete],
+                 headers: :any,
+                 methods: [:get, :post, :put, :delete, :options, :head],
                  expose: %w(access-token expiry token-type uid client),
                  max_age: 0
       end
