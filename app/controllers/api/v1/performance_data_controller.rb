@@ -7,7 +7,7 @@ class Api::V1::PerformanceDataController < ApplicationController
       when 'Excellent', 'Above average', 'Average', 'Below average', 'Poor'
       then
         if PerformanceData.create(performance_data_params.merge(user: current_api_v1_user)).valid?
-          render json: {message: 'all good'}
+          render json: {message: 'Success!'}
         else
           render json: {error: PerformanceData.errors.full_messages}
         end
